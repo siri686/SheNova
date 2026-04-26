@@ -1,0 +1,293 @@
+{% block content %}
+
+<style>
+
+/* ===== DARK MODERN UI ===== */
+
+body{
+background:#0f172a;
+font-family:'Segoe UI',sans-serif;
+color:white;
+margin:0;
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+width:220px;
+height:100vh;
+background:#020617;
+padding:20px;
+position:fixed;
+}
+
+.sidebar h3{
+color:#8b5cf6;
+margin-bottom:30px;
+}
+
+.sidebar a{
+display:block;
+color:#cbd5f5;
+padding:10px;
+margin-bottom:10px;
+text-decoration:none;
+border-radius:8px;
+transition:0.3s;
+}
+
+.sidebar a:hover{
+background:#1e293b;
+}
+
+/* ===== CONTENT ===== */
+
+.content{
+margin-left:240px;
+padding:30px;
+}
+
+/* ===== REVIEW CARD ===== */
+
+.review-container{
+background:#1e293b;
+padding:30px;
+border-radius:15px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+max-width:900px;
+}
+
+/* Sections */
+
+.section{
+background:#0f172a;
+padding:20px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.section h4{
+margin-bottom:10px;
+color:#a78bfa;
+}
+
+/* Textarea */
+
+textarea{
+width:100%;
+border-radius:10px;
+padding:12px;
+border:none;
+margin-top:10px;
+background:#020617;
+color:white;
+}
+
+textarea:focus{
+outline:none;
+box-shadow:0 0 0 2px #8b5cf6;
+}
+
+/* Buttons */
+
+.action-buttons{
+margin-top:20px;
+}
+
+.action-btn{
+padding:10px 20px;
+border:none;
+border-radius:8px;
+font-weight:600;
+margin-right:10px;
+cursor:pointer;
+}
+
+/* Approve */
+
+.approve{
+background:#22c55e;
+color:white;
+}
+
+.approve:hover{
+background:#16a34a;
+}
+
+/* Reject */
+
+.reject{
+background:#ef4444;
+color:white;
+}
+
+.reject:hover{
+background:#dc2626;
+}
+
+/* Status Message */
+
+.status-msg{
+color:#22c55e;
+font-weight:bold;
+margin-top:10px;
+}
+
+/* Status Badge */
+
+.status-badge{
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+}
+
+.pending{ background:#facc15; color:black; }
+.approved{ background:#22c55e; }
+.rejected{ background:#ef4444; }
+.action-btn{
+    padding:10px 20px;
+    border:none;
+    border-radius:8px;
+    font-weight:600;
+    margin-right:10px;
+    cursor:pointer;
+}
+
+.approve{ background:#22c55e; color:white; }
+.approve:hover{ background:#16a34a; }
+
+.reject{ background:#ef4444; color:white; }
+.reject:hover{ background:#dc2626; }
+</style>
+
+<!-- ===== SIDEBAR ===== -->
+<div class="sidebar">
+<h3>SheNova</h3>
+
+<a href="{% url 'supervisor_dashboard' %}">Dashboard</a>
+<a href="{% url 'logout' %}">Logout</a>
+
+</div>
+
+<!-- ===== CONTENT ===== -->
+<div class="content">
+
+<div class="review-container">
+
+<h2>Review Application</h2>
+
+<!-- STATUS DISPLAY -->
+<p>
+<strong>Status:</strong>
+<span class="status-badge 
+{% if application.status|lower == 'pending' %}pending
+{% elif application.status|lower == 'approved' %}approved
+{% else %}rejected{% endif %}">
+{{ application.status }}
+</span>
+</p>
+
+<!-- BASIC DETAILS -->
+<div class="section">
+<p><strong>Student:</strong> {{ application.student.username }}</p>
+<p><strong>Requested Amount:</strong> ₹{{ application.amount_requested }}</p>
+<p><strong>Reason:</strong> {{ application.reason }}</p>
+<p><strong>Family Income:</strong> ₹{{ application.family_income }}</p>
+</div>
+
+<!-- LOAN DETAILS -->
+<div class="section">
+<h4>Loan Details</h4>
+<p><strong>Max Limit:</strong> ₹{{ student_profile.max_limit }}</p>
+<p><strong>Used Amount:</strong> ₹{{ student_profile.used_amount }}</p>
+<p><strong>Remaining:</strong> ₹{{ student_profile.remaining_limit }}</p>
+</div>
+
+<!-- CREDIT CHECK -->
+<div class="section">
+<h4>Credit Check</h4>
+<p><strong>Score:</strong> {{ score }}</p>
+<p><strong>Risk Level:</strong> {{ risk }}</p>
+</div>
+
+<!-- PRIORITY -->
+<div class="section">
+<h4>Priority Details</h4>
+
+<p>
+<strong>Emergency:</strong>
+{% if application.is_emergency %}
+<span style="color:red;">🔴 Yes</span>
+{% else %}
+<span style="color:lightgreen;">🟢 No</span>
+{% endif %}
+</p>
+
+<p>
+<strong>Priority Level:</strong>
+{% if application.priority_level == "Critical" %}
+<span style="color:red;">Critical</span>
+{% elif application.priority_level == "High" %}
+<span style="color:orange;">High</span>
+{% elif application.priority_level == "Medium" %}
+<span style="color:yellow;">Medium</span>
+{% else %}
+<span style="color:lightgreen;">Low</span>
+{% endif %}
+</p>
+
+</div>
+<h4>📂 Uploaded Documents</h4>
+
+<p>
+    Aadhaar:
+    {% if application.aadhar_card %}
+        <a href="{{ application.aadhar_card.url }}" target="_blank">View</a>
+    {% else %}
+        Not uploaded
+    {% endif %}
+</p>
+
+<p>
+    PAN:
+    {% if application.pan_card %}
+        <a href="{{ application.pan_card.url }}" target="_blank">View</a>
+    {% else %}
+        Not uploaded
+    {% endif %}
+</p>
+
+<p>
+    Student ID:
+    {% if application.student_id_card %}
+        <a href="{{ application.student_id_card.url }}" target="_blank">View</a>
+    {% else %}
+        Not uploaded
+    {% endif %}
+</p>
+
+<!-- FORM -->
+<form method="POST">
+{% csrf_token %}
+
+
+
+    <label>Notes:</label>
+    <textarea name="notes" {% if readonly %}readonly{% endif %}>{{ application.supervisor_notes }}</textarea>
+
+    <div class="action-buttons">
+    {% if not readonly %}
+        <button type="submit" name="decision" value="approve" class="action-btn approve">Approve</button>
+        <button type="submit" name="decision" value="reject" class="action-btn reject">Reject</button>
+    {% else %}
+        <p>✅ Application already {{ application.status }}</p>
+    {% endif %}
+</div>
+
+</form>
+
+</div>
+</div>
+
+{% endblock %}

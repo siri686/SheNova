@@ -1,0 +1,135 @@
+{% load static %}
+{% block content %}
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    min-height:100vh;
+
+    background: url("{% static 'images/login_bg2.png' %}") no-repeat center center;
+    background-size: cover;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* CARD */
+.auth-card{
+    background:white;
+    border-radius:20px;
+    padding:30px;
+    width:380px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+}
+
+/* TITLE */
+.auth-card h3{
+    text-align:center;
+    margin-bottom:20px;
+    color:#1e3a8a;
+}
+
+/* FORM GROUP (IMPORTANT FIX) */
+.form-group{
+    display:flex;
+    flex-direction:column;
+    margin-bottom:15px;
+}
+
+/* LABEL */
+.form-group label{
+    font-size:14px;
+    margin-bottom:5px;
+    color:#374151;
+}
+
+/* INPUT */
+.form-control{
+    border-radius:12px;
+    border:1px solid #e5e7eb;
+    padding:12px;
+    font-size:14px;
+    background:#f8fafc;
+}
+
+.form-control:focus{
+    border-color:#3b82f6;
+    box-shadow:0 0 0 2px rgba(59,130,246,0.2);
+    background:white;
+}
+
+/* BUTTON */
+.auth-btn{
+    width:100%;
+    border-radius:12px;
+    padding:12px;
+    font-weight:600;
+    background:#2563eb;
+    color:white;
+    border:none;
+    margin-top:10px;
+}
+
+.auth-btn:hover{
+    background:#1d4ed8;
+}
+
+/* ERROR */
+.error{
+    color:red;
+    text-align:center;
+    margin-top:10px;
+}
+/* LINK */
+.login-link{
+    text-align:center;
+    margin-top:15px;
+}
+
+.login-link a{
+    color:#2563eb;
+    text-decoration:none;
+}
+
+.login-link a:hover{
+    text-decoration:underline;
+}
+</style>
+
+<div class="auth-card">
+
+<h3>Supervisor Registration</h3>
+
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+
+<form method="POST">
+{% csrf_token %}
+
+<div class="form-group">
+<label>Username</label>
+<input class="form-control" type="text" name="username" required>
+</div>
+
+<div class="form-group">
+<label>Password</label>
+<input class="form-control" type="password" name="password" required>
+</div>
+
+<div class="form-group">
+<label>Confirm Password</label>
+<input class="form-control" type="password" name="confirm" required>
+</div>
+
+<button class="auth-btn">Register Supervisor</button>
+<div class="login-link">
+Already have account? <a href="{% url 'login' %}">Login</a>
+</div>
+</form>
+
+</div>
+
+{% endblock %}

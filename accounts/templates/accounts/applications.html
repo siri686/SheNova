@@ -1,0 +1,158 @@
+{% block content %}
+
+<style>
+
+/* ===== GLOBAL ===== */
+body{
+    background:#0f172a;
+    font-family:'Segoe UI',sans-serif;
+    color:#e2e8f0;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    width:240px;
+    height:100vh;
+    background:#020617;
+    padding:25px 15px;
+    position:fixed;
+    box-shadow:4px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar h3{
+    color:#38bdf8;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.sidebar a{
+    display:block;
+    color:#cbd5f5;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:10px;
+    text-decoration:none;
+}
+
+.sidebar a:hover{
+    background:rgba(56,189,248,0.2);
+    color:white;
+}
+
+/* ===== CONTENT ===== */
+.content{
+    margin-left:260px;
+    padding:30px;
+}
+
+/* ===== SEARCH ===== */
+.search-box input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#1e293b;
+    color:white;
+    margin-bottom:20px;
+}
+
+/* ===== CARD ===== */
+.card{
+    background:linear-gradient(145deg,#1e293b,#0f172a);
+    padding:20px;
+    border-radius:16px;
+}
+
+/* ===== TABLE ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#334155;
+    padding:12px;
+}
+
+td{
+    padding:12px;
+    text-align:center;
+}
+
+tr:hover{
+    background:rgba(56,189,248,0.1);
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    background:linear-gradient(135deg,#4f46e5,#06b6d4);
+    color:white;
+    padding:6px 12px;
+    border-radius:8px;
+    text-decoration:none;
+}
+
+</style>
+
+<div class="sidebar">
+<h3>🎓 SheNova</h3>
+
+<a href="{% url 'supervisor_dashboard' %}">🏠 Dashboard</a>
+<a href="{% url 'applications_list' %}">📄 Applications</a>
+<a href="{% url 'reports' %}">📊 Reports</a>
+<a href="{% url 'logout' %}">🚪 Logout</a>
+</div>
+
+<div class="content">
+
+<h2>Applications 📄</h2>
+
+<div class="search-box">
+<input type="text" placeholder="🔍 Search..." onkeyup="filterTable(this.value)">
+</div>
+
+<div class="card">
+
+<table id="appTable">
+<tr>
+<th>Student</th>
+<th>Amount</th>
+<th>Reason</th>
+<th>Status</th>
+<th>Priority</th>
+<th>Action</th>
+</tr>
+
+{% for app in applications %}
+<tr>
+<td>{{ app.student.username }}</td>
+<td>₹{{ app.amount_requested }}</td>
+<td>{{ app.reason|truncatechars:40 }}</td>
+<td>{{ app.status }}</td>
+<td>{{ app.priority_level }}</td>
+<td>
+{% if app.status == "Pending" %}
+    <a href="{% url 'review_application' app.id %}" class="btn">Review</a>
+{% else %}
+    <button class="btn" disabled>Reviewed</button>
+{% endif %}
+</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</div>
+</div>
+
+<script>
+function filterTable(value){
+let rows=document.querySelectorAll("#appTable tr");
+rows.forEach((row,i)=>{
+if(i===0)return;
+row.style.display=row.innerText.toLowerCase().includes(value.toLowerCase())?"":"none";
+});
+}
+</script>
+
+{% endblock %}

@@ -1,0 +1,144 @@
+{% block content %}
+<style>
+/* ===== BASE ===== */
+body{
+    font-family:'Poppins',sans-serif;
+    background: linear-gradient(135deg,#1e293b,#0f172a);
+    color:white;
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:0;
+}
+
+/* ===== CARD ===== */
+.container-card{
+    background:#1e293b;
+    padding:40px;
+    width:400px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+    text-align:center;
+}
+
+/* ===== HEADINGS ===== */
+h2{
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+/* ===== WALLET BOX ===== */
+.wallet-box{
+    background:#334155;
+    padding:20px;
+    border-radius:12px;
+    margin-bottom:20px;
+}
+
+.wallet-box p{
+    margin:5px 0;
+}
+
+/* ===== INPUT ===== */
+input{
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    margin-top:10px;
+    font-size:16px;
+}
+
+input:focus{
+    outline:none;
+    box-shadow:0 0 0 2px #38bdf8;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    width:100%;
+    margin-top:20px;
+    padding:12px;
+    background:#38bdf8;
+    color:black;
+    border:none;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+    opacity:0.9;
+}
+
+/* ===== BACK BUTTON ===== */
+.back-btn{
+    display:inline-block;
+    margin-top:15px;
+    padding:10px 15px;
+    background:#64748b;
+    border-radius:10px;
+    color:white;
+    text-decoration:none;
+}
+
+/* ===== MESSAGES ===== */
+.message{
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:10px;
+    font-weight:500;
+}
+
+.success{
+    background:#22c55e;
+    color:white;
+}
+
+.error{
+    background:#ef4444;
+    color:white;
+}
+
+/* ===== PAY BUTTON ===== */
+.pay-btn{
+    background:#22c55e;
+    color:white;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:500px){
+    .container-card{
+        width:90%;
+        padding:25px;
+    }
+}
+</style>
+<div class="container-card">
+
+<h2>Add Money</h2>
+
+<div class="wallet-box">
+    <p>Wallet Balance</p>
+    <h3>₹{{ profile.account_balance }}</h3>
+</div>
+
+{% if messages %}
+    {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+<form method="POST">
+    {% csrf_token %}
+    <input type="number" name="amount" placeholder="Enter amount" required>
+    <button class="btn">Add Money</button>
+</form>
+
+<a href="{% url 'student_dashboard' %}" class="back-btn">← Back</a>
+
+</div>
+{% endblock %}

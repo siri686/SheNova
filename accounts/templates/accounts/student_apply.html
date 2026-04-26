@@ -1,0 +1,370 @@
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* ===== GLOBAL ===== */
+/* ===== GLOBAL ===== */
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+.light{
+    background:#f8fafc;
+    color:#0f172a;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    position:fixed;
+    width:240px;
+    height:100%;
+    background:#020617;
+    padding:25px 15px;
+}
+
+.sidebar h2{
+    color:#38bdf8;
+    text-align:center;
+}
+
+.sidebar a, .sidebar button{
+    display:block;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    color:#cbd5f5;
+    text-decoration:none;
+    background:none;
+    border:none;
+    width:100%;
+    transition:0.3s;
+}
+
+.sidebar a:hover, .sidebar button:hover{
+    background:rgba(56,189,248,0.2);
+}
+
+/* ===== LIGHT SIDEBAR ===== */
+body.light .sidebar{
+    background:#e2e8f0;
+}
+body.light .sidebar a,
+body.light .sidebar button{
+    color:#0f172a;
+}
+body.light .sidebar a:hover,
+body.light .sidebar button:hover{
+    background:rgba(0,0,0,0.1);
+}
+
+/* ===== MAIN ===== */
+.main{
+    margin-left:260px;
+    padding:40px 20px;
+    display:flex;
+    justify-content:center;
+}
+
+/* ===== CARD (FORM CONTAINER) ===== */
+.card{
+    width:100%;
+    max-width:650px;
+    background:linear-gradient(145deg,#1e293b,#0f172a);
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.5);
+}
+
+/* ===== LIGHT CARD ===== */
+body.light .card{
+    background:#ffffff;
+    color:#0f172a;
+    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* ===== TITLE ===== */
+.card h2{
+    margin-bottom:20px;
+    font-weight:600;
+}
+
+/* ===== FORM INPUTS ===== */
+input, textarea, select{
+    width:100%;
+    padding:12px;
+    margin-top:12px;
+    border-radius:10px;
+    border:none;
+    background:#0f172a;
+    color:#e2e8f0;
+    outline:none;
+    transition:0.3s;
+}
+
+/* ===== INPUT FOCUS ===== */
+input:focus, textarea:focus, select:focus{
+    border:1px solid #38bdf8;
+    box-shadow:0 0 10px rgba(56,189,248,0.4);
+}
+
+/* ===== LIGHT INPUT ===== */
+.light input, .light textarea, .light select{
+    background:#e2e8f0;
+    color:#0f172a;
+}
+
+/* ===== TEXTAREA ===== */
+textarea{
+    min-height:90px;
+    resize:none;
+}
+
+/* ===== FILE INPUT ===== */
+input[type="file"]{
+    background:#020617;
+    padding:10px;
+    border:1px dashed #38bdf8;
+}
+
+/* ===== LABEL ===== */
+label{
+    display:block;
+    margin-top:12px;
+    font-size:14px;
+    color:#94a3b8;
+}
+
+/* ===== INTEREST TEXT ===== */
+#interest-info{
+    margin-top:10px;
+    color:#38bdf8;
+    font-weight:500;
+}
+
+#total-pay{
+    color:#22c55e;
+    font-weight:600;
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    background:linear-gradient(90deg,#06b6d4,#4f46e5);
+    color:white;
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    margin-top:18px;
+    width:100%;
+    font-weight:600;
+    transition:0.3s;
+}
+
+/* ===== BUTTON HOVER ===== */
+.btn:hover{
+    transform:scale(1.03);
+    box-shadow:0 5px 20px rgba(79,70,229,0.4);
+}
+
+/* ===== BUTTON GROUP ===== */
+.button-group{
+    display:flex;
+    gap:12px;
+}
+
+/* ===== STEPS ===== */
+.step{
+    display:none;
+    animation:fade 0.3s ease;
+}
+
+.step.active{
+    display:block;
+}
+
+/* ===== ANIMATION ===== */
+@keyframes fade{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+</style>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>🎓SheNova</h2>
+
+    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'student_apply' %}">💰 Apply Loan</a>
+    <a href="{% url 'student_transactions' %}">🔄 Transactions</a>
+
+    <!-- 🌙 Toggle -->
+    <button onclick="toggleTheme()">🌙 Toggle</button>
+
+    <!-- 🚪 Logout -->
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">🚪 Logout</button>
+    </form>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div class="card">
+
+<h2>💰 Apply for Loan</h2>
+
+<form method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+
+<!-- STEP 1 -->
+<div class="step active" id="step1">
+
+<input type="text" name="full_name" placeholder="Full Name" required>
+<input type="text" name="phone" placeholder="Phone" required
+       pattern="[0-9]{10}" maxlength="10"
+       title="Enter exactly 10 digit phone number">
+<input type="text" name="college" placeholder="College" required>
+<input type="text" name="course" placeholder="Course" required>
+
+<select name="year" required>
+    <option value="">Select Year</option>
+    <option value="1">1st Year</option>
+    <option value="2">2nd Year</option>
+    <option value="3">3rd Year</option>
+    <option value="4">4th Year</option>
+</select>
+<input type="number" name="amount" placeholder="Amount" required>
+<textarea name="reason" placeholder="Reason" required></textarea>
+<input type="number" name="family_income" placeholder="Family Income" required>
+
+<select name="repayment_plan" id="plan" onchange="showInterest()" required>
+
+    <option value="" disabled selected>Choose Repayment Plan</option>
+
+    <option value="30" data-interest="2">30 Days - 2% Interest</option>
+    <option value="60" data-interest="4">60 Days - 4% Interest</option>
+    <option value="90" data-interest="6">90 Days - 6% Interest</option>
+
+</select>
+
+<p id="interest-info" style="margin-top:10px; color:#38bdf8;"></p>
+<p id="total-pay" style="color:#22c55e;"></p>
+
+<button type="button" class="btn" onclick="nextStep()">Next</button>
+</div>
+
+<!-- STEP 2 -->
+<div class="step" id="step2">
+
+<input type="text" name="aadhaar_number" placeholder="Aadhaar"
+       pattern="[0-9]{12}" maxlength="12"
+       title="Enter 12 digit Aadhaar" required>
+<input type="text" name="pan_number" placeholder="PAN"
+       pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"
+       title="Format: ABCDE1234F" required>
+<input type="text" name="student_id_number" placeholder="Roll Number" required
+       pattern="[A-Za-z0-9]{6,15}"
+       title="Enter valid roll number (6-15 characters, letters & numbers)">
+<input type="text" name="reference_name" placeholder="Reference Name" required>
+<input type="text" name="reference_phone" placeholder="Reference Phone" required
+       pattern="[0-9]{10}" maxlength="10"
+       title="Enter exactly 10 digit phone number">
+<h4>📂 Upload Documents</h4>
+
+<div class="form-group">
+    <label for="aadhar_card">Aadhaar Card (PDF / JPG / PNG)</label>
+    <input type="file" id="aadhar_card" name="aadhar_card" accept=".pdf,.jpg,.jpeg,.png" required>
+</div>
+
+<div class="form-group">
+    <label for="pan_card">PAN Card (PDF / JPG / PNG)</label>
+    <input type="file" id="pan_card" name="pan_card" accept=".pdf,.jpg,.jpeg,.png" required>
+</div>
+
+<div class="form-group">
+    <label for="student_id_card">Student ID (PDF / JPG / PNG)</label>
+    <input type="file" id="student_id_card" name="student_id_card" accept=".pdf,.jpg,.jpeg,.png" required>
+</div>
+<select name="is_emergency">
+<option value="False">Normal</option>
+<option value="True">Emergency</option>
+</select>
+
+<select name="priority_level">
+<option value="Low">Low</option>
+<option value="Medium">Medium</option>
+<option value="High">High</option>
+<option value="Critical">Critical</option>
+</select>
+
+<div class="button-group">
+<button type="button" class="btn" onclick="prevStep()">Back</button>
+<button type="submit" class="btn" onclick="return validateStep2()">Submit</button>
+</div>
+
+</div>
+
+</form>
+</div>
+</div>
+
+<script>
+function nextStep(){
+document.getElementById("step1").classList.remove("active");
+document.getElementById("step2").classList.add("active");
+}
+function prevStep(){
+document.getElementById("step2").classList.remove("active");
+document.getElementById("step1").classList.add("active");
+}
+function toggleTheme(){
+document.body.classList.toggle("light");
+}
+function validateStep1(){
+    let phone = document.querySelector('[name="phone"]').value;
+
+    // 📱 PHONE VALIDATION
+    if(!/^\d{10}$/.test(phone)){
+        alert("Phone must be exactly 10 digits");
+        return false;
+    }
+
+    return true;
+}
+
+function validateStep2(){
+    let refPhone = document.querySelector('[name="reference_phone"]').value;
+
+    // 📱 REFERENCE PHONE VALIDATION
+    if(!/^\d{10}$/.test(refPhone)){
+        alert("Reference phone must be exactly 10 digits");
+        return false;
+    }
+
+    return true;
+}
+
+function nextStep(){
+    if(!validateStep1()) return;   // ✅ VALIDATION ADDED
+
+    document.getElementById("step1").classList.remove("active");
+    document.getElementById("step2").classList.add("active");
+}
+
+function prevStep(){
+    document.getElementById("step2").classList.remove("active");
+    document.getElementById("step1").classList.add("active");
+}
+
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+</script>
+
+{% endblock %}

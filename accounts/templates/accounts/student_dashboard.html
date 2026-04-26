@@ -1,0 +1,577 @@
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+body{
+    margin:0;
+    font-family:'Poppins',sans-serif;
+    background:#0f172a;
+    color:#e2e8f0;
+}
+
+.light{
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar{
+    position:fixed;
+    width:240px;
+    height:100%;
+    background:#020617;
+    padding:25px 15px;
+}
+
+.sidebar h2{
+    color:#38bdf8;
+    text-align:center;
+}
+
+.sidebar a,
+.sidebar button{
+    display:block;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    color:#cbd5f5;
+    text-decoration:none;
+    background:none;
+    border:none;
+    width:100%;
+    transition:0.3s;
+}
+
+.sidebar a:hover,
+.sidebar button:hover{
+    background:rgba(56,189,248,0.2);
+}
+
+/* ===== MAIN ===== */
+.main{
+    margin-left:260px;
+    padding:25px;
+}
+
+/* ===== GRID LAYOUT ===== */
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:20px;
+}
+
+.left, .right{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+/* ===== CARD ===== */
+.card{
+    background:#1e293b;
+    border-radius:16px;
+    padding:20px;
+    margin-bottom:20px;
+    transition:all 0.3s ease;
+}
+
+.card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card h4{
+    margin-bottom:15px;
+    font-weight:600;
+    color:#cbd5f5;
+}
+
+/* ===== WALLET ===== */
+.wallet{
+    font-size:28px;
+    color:#38bdf8;
+    cursor:pointer;
+}
+
+/* ===== SUMMARY BOX ===== */
+.summary{
+    display:flex;
+    gap:15px;
+}
+
+.box{
+    flex:1;
+    background:#0f172a;
+    padding:15px;
+    border-radius:12px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.box:hover{
+    transform:translateY(-3px);
+    background:#1e293b;
+}
+
+/* ===== PROGRESS ===== */
+.progress{
+    height:10px;
+    background:#334155;
+    border-radius:10px;
+    overflow:hidden;
+    margin-top:10px;
+}
+
+.progress-bar{
+    height:100%;
+    background:linear-gradient(90deg,#06b6d4,#4f46e5);
+}
+
+/* ===== TABLE ===== */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    background:#334155;
+    padding:10px;
+    font-weight:600;
+}
+
+td{
+    padding:10px;
+    text-align:center;
+}
+
+tr{
+    transition:0.2s;
+}
+
+tr:hover{
+    background:rgba(56,189,248,0.1);
+}
+
+/* ===== BUTTON ===== */
+.btn{
+    background:linear-gradient(90deg,#06b6d4,#4f46e5);
+    color:white;
+    padding:8px 14px;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:500;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+
+/* ===== CREDIT SCORE ===== */
+.circle{
+    width:150px;
+    height:150px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto;
+    font-size:28px;
+    font-weight:bold;
+    background:conic-gradient(#22c55e 0% 70%, #1e293b 70%);
+}
+
+/* ===== LIGHT MODE ===== */
+
+/* Sidebar */
+body.light .sidebar{
+    background:#ffffff;
+    box-shadow:2px 0 10px rgba(0,0,0,0.05);
+}
+
+body.light .sidebar a,
+body.light .sidebar button{
+    color:#0f172a;
+}
+
+body.light .sidebar a:hover,
+body.light .sidebar button:hover{
+    background:#e2e8f0;
+}
+
+/* Cards */
+body.light .card{
+    background:#ffffff;
+    color:#0f172a;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+body.light .card h4{
+    color:#0f172a;
+}
+
+/* Boxes */
+body.light .box{
+    background:#f1f5f9;
+}
+
+/* Wallet */
+body.light .wallet{
+    color:#2563eb;
+}
+
+/* Table */
+body.light table{
+    color:#0f172a;
+}
+
+body.light th{
+    background:#e2e8f0;
+}
+
+body.light tr:hover{
+    background:#f1f5f9;
+}
+
+/* Progress */
+body.light .progress{
+    background:#e2e8f0;
+}
+
+/* Button */
+body.light .btn{
+    background:linear-gradient(90deg,#3b82f6,#6366f1);
+}
+
+/* Circle */
+body.light .circle{
+    background:conic-gradient(#22c55e 0% 70%, #e2e8f0 70%);
+}
+/* GRID LAYOUT */
+.dashboard-grid{
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+    gap:20px;
+    align-items:stretch;
+}
+
+/* CARD STYLE */
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:16px;
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+}
+
+/* WALLET CARD CENTERING */
+.wallet-card{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+/* WALLET AMOUNT */
+.wallet{
+    font-size:28px;
+    font-weight:600;
+    margin:15px 0;
+    color:#38bdf8;
+}
+
+/* BUTTON */
+.submit-btn{
+    display:inline-block;
+    padding:10px 20px;
+    background:#38bdf8;
+    color:black;
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+    transition:0.3s;
+}
+
+.submit-btn:hover{
+    transform:scale(1.05);
+    opacity:0.9;
+}
+
+/* MOBILE RESPONSIVE */
+@media(max-width:768px){
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:900px){
+    .dashboard-grid{
+        grid-template-columns:1fr;
+    }
+
+    .main{
+        margin-left:0;
+    }
+
+    .sidebar{
+        position:relative;
+        width:100%;
+        height:auto;
+    }
+}
+</style>
+
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <h2>🎓SheNova</h2>
+
+    <a href="{% url 'student_dashboard' %}">Dashboard</a>
+    {% if can_apply %}
+        <a href="{% url 'student_apply' %}">Apply Loan</a>
+    {% else %}
+        <span style="color: gray; cursor: not-allowed;" title="Repay ₹{{ remaining_to_unlock|floatformat:2 }} to unlock">
+            Apply Loan (Locked)
+        </span>
+    {% endif %}
+    <a href="{% url 'student_transactions' %}">Transactions</a>
+    <button onclick="toggleTheme()">🌙 Toggle</button>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+    <h2>Welcome, {{ user.username }}</h2>
+
+    <div style="font-size:14px; color:#94a3b8;">
+        Today: {{ today|date:"d M Y" }}
+    </div>
+</div>
+
+<!-- WALLET -->
+<<div class="dashboard-grid">
+
+    <div class="card wallet-card">
+        <h4>Wallet Balance</h4>
+
+        <div id="walletAmount" class="wallet">
+            ₹{{ profile.account_balance }}
+        </div>
+
+        <a href="{% url 'add_money' %}" class="submit-btn">
+            💰 Add Money
+        </a>
+    </div>
+
+</div>
+
+<!-- CREDIT OVERVIEW -->
+<div class="card">
+    <h4>Credit Overview</h4>
+
+    <div class="summary">
+        <div class="box">
+            <h3>₹{{ profile.max_limit }}</h3>
+            <p>Total Limit</p>
+        </div>
+
+        <div class="box">
+            <h3>₹{{ profile.used_amount }}</h3>
+            <p>Used</p>
+        </div>
+
+        <div class="box">
+            <h3>₹{{ profile.remaining_limit }}</h3>
+            <p>Available</p>
+        </div>
+    </div>
+
+    <div class="progress">
+        <div class="progress-bar" style="width: {{ usage_percent }}%;"></div>
+    </div>
+
+    <p>{{ usage_percent|floatformat:2 }}% Utilized</p>
+
+    <p>
+        Status:
+        {% if usage_percent < 40 %}
+            <span style="color:#22c55e; font-weight:bold;">Healthy 🟢</span>
+        {% elif usage_percent < 75 %}
+            <span style="color:#facc15; font-weight:bold;">Moderate 🟡</span>
+        {% else %}
+            <span style="color:#ef4444; font-weight:bold;">High Usage 🔴</span>
+        {% endif %}
+    </p>
+    
+</div>
+</div>
+
+<!-- NEXT PAYMENT INFO -->
+<div class="card">
+    <h4>Next Payment</h4>
+
+    {% if next_payment %}
+        <h2 style="color:#38bdf8;">₹{{ next_payment.remaining_amount }}</h2>
+<p>Next Payment Amount</p>
+
+        <p>
+            <b>Due Date:</b>
+            {{ next_payment.deadline|date:"d M Y" }}
+        </p>
+
+        <p>
+            <b>Time Left:</b>
+            <span style="color:#38bdf8;">
+                {{ next_payment.deadline|timeuntil }}
+            </span>
+        </p>
+
+        <!-- 🔴 OVERDUE ALERT -->
+        {% if next_payment.deadline < today %}
+            <p style="color:#ef4444; font-weight:bold;">
+                ⚠ Overdue! Please repay immediately
+            </p>
+        {% endif %}
+
+        <!-- 💳 PAY NOW BUTTON -->
+        <a href="{% url 'repay_loan' next_payment.id %}" class="btn">
+            Pay Now
+        </a>
+
+    {% else %}
+        <p>No active payments 🎉</p>
+    {% endif %}
+</div>
+
+<!-- APPLY LOAN BUTTON / LOCK -->
+<div class="card apply-card" style="margin-top: 20px;">
+    {% if can_apply %}
+        <a href="{% url 'student_apply' %}" class="btn btn-primary">
+            Apply for Loan
+        </a>
+    {% else %}
+        <button class="btn btn-gray" disabled>
+            Apply Locked: Repay ₹{{ remaining_to_unlock|floatformat:2 }} more to unlock
+        </button>
+    {% endif %}
+</div>
+
+<!-- LOANS -->
+<div class="card">
+    <h4>Your Loans</h4>
+
+    <table>
+        <tr>
+            <th>Total</th>
+            <th>Remaining</th>
+            <th>Due Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for loan in loans %}
+        <tr>
+            <td>₹{{ loan.total_amount }}</td>
+            <td>₹{{ loan.remaining_amount }}</td>
+            <td>
+                {% if loan.deadline %}
+                    {{ loan.deadline|date:"d M Y" }}
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>
+                {% if loan.status == "Active" %}
+                    <span style="color: #f97316; font-weight:bold;">Active</span>
+                {% else %}
+                    <span style="color: #22c55e; font-weight:bold;">Closed</span>
+                {% endif %}
+            </td>
+            <td>
+                {% if loan.remaining_amount > 0 %}
+                    <a href="{% url 'repay_loan' loan.id %}" class="btn btn-success">Repay</a>
+                {% else %}
+                    <span style="color:green;">Paid</span>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<!-- CREDIT SCORE -->
+<div class="card">
+    <h4>Credit Score</h4>
+    <div class="circle">
+        {{ credit_score }}
+    </div>
+    <p style="text-align:center; margin-top:10px;">
+        {% if credit_score >= 750 %}
+            Excellent 🟢
+        {% elif credit_score >= 650 %}
+            Good 🔵
+        {% elif credit_score >= 550 %}
+            Average 🟡
+        {% else %}
+            Poor 🔴
+        {% endif %}
+    </p>
+</div>
+
+<!-- RECENT TRANSACTIONS -->
+<div class="card">
+    <h4>Recent Transactions</h4>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Amount</th>
+        </tr>
+        {% for t in transactions|slice:":5" %}
+        <tr>
+            <td>{{ t.date|date:"d M Y" }}</td>
+            <td>{{ t.type }}</td>
+            <td>₹{{ t.amount }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+</div> <!-- END MAIN -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+    let visible = false;
+    let realAmount = "{{ profile.account_balance|default:'0.00' }}";
+    let el = document.getElementById("walletAmount");
+
+    function mask(val){
+        return "₹ " + "X".repeat(val.length);
+    }
+
+    el.innerText = mask(realAmount);
+
+    el.onclick = function(){
+        if(visible){
+            el.innerText = mask(realAmount);
+        }else{
+            el.innerText = "₹ " + realAmount;
+        }
+        visible = !visible;
+    }
+});
+
+function toggleTheme(){
+    document.body.classList.toggle("light");
+}
+</script>
+
+{% endblock %}

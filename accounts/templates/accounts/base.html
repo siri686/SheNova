@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block title %}SheNova{% endblock %}
+    </title>
+
+    <link rel="stylesheet"
+          href="{% static 'css/shenova.css' %}">
+
+</head>
+
+<body>
+
+{% block layout %}
+
+<div class="sidebar">
+
+    <h3>SheNova</h3>
+
+    <a href="{% url 'student_dashboard' %}">
+        ◈ &nbsp; Dashboard
+    </a>
+
+    <a href="{% url 'applications' %}">
+        ▣ &nbsp; Applications
+    </a>
+
+    <a href="#">
+        ◉ &nbsp; Loans
+    </a>
+
+    <a href="#">
+        ₹ &nbsp; Payments
+    </a>
+
+    <a href="#">
+        ◫ &nbsp; Reports
+    </a>
+
+    <a href="#">
+        ⚙ &nbsp; Settings
+    </a>
+
+    <div class="sidebar-bottom">
+
+        <a href="{% url 'logout' %}">
+            ⇥ &nbsp; Logout
+        </a>
+
+    </div>
+
+</div>
+
+
+<main class="content">
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+{% endblock %}
+
+</body>
+</html>

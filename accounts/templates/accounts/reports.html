@@ -1,138 +1,9 @@
+{% load static %}
+
 {% block content %}
 
-<style>
-
-/* ===== GLOBAL ===== */
-body{
-    margin:0;
-    font-family:'Segoe UI',sans-serif;
-    background: radial-gradient(circle at top right, #1e3a8a, #020617);
-    color:#e2e8f0;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
-    width:240px;
-    height:100vh;
-    background:#020617;
-    padding:25px 15px;
-    position:fixed;
-    border-right:1px solid rgba(255,255,255,0.05);
-}
-
-.sidebar h3{
-    color:#38bdf8;
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.sidebar a{
-    display:block;
-    color:#cbd5f5;
-    padding:12px;
-    margin-bottom:10px;
-    border-radius:10px;
-    text-decoration:none;
-    transition:0.3s;
-}
-
-.sidebar a:hover{
-    background:linear-gradient(90deg,#2563eb,#06b6d4);
-    color:white;
-}
-
-/* ===== CONTENT ===== */
-.content{
-    margin-left:260px;
-    padding:30px;
-}
-
-/* ===== TOPBAR ===== */
-.topbar{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:20px;
-}
-
-/* ===== GRID ===== */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-}
-
-/* ===== CARD ===== */
-.card{
-    background: rgba(255,255,255,0.05);
-    backdrop-filter: blur(10px);
-    padding:20px;
-    border-radius:16px;
-    text-align:center;
-    border:1px solid rgba(255,255,255,0.1);
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-6px);
-    box-shadow:0 0 20px rgba(56,189,248,0.3);
-}
-
-.card h3{
-    margin:0;
-    font-size:26px;
-}
-
-.card p{
-    color:#94a3b8;
-}
-
-/* ===== CHART ===== */
-.chart-box{
-    margin-top:30px;
-    background: rgba(255,255,255,0.05);
-    padding:20px;
-    border-radius:16px;
-    display:flex;
-    justify-content:center;
-}
-
-.chart-box canvas{
-    max-width:280px;
-    max-height:280px;
-}
-
-/* ===== TABLE ===== */
-.table-box{
-    margin-top:30px;
-    background: rgba(255,255,255,0.05);
-    padding:20px;
-    border-radius:16px;
-}
-
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th, td{
-    padding:12px;
-    text-align:left;
-}
-
-th{
-    color:#94a3b8;
-}
-
-tr{
-    border-bottom:1px solid rgba(255,255,255,0.05);
-}
-
-.approved{ color:#22c55e; }
-.rejected{ color:#ef4444; }
-.pending{ color:#facc15; }
-
-</style>
+<link rel="stylesheet"
+      href="{% static 'shenova.css' %}">
 
 <!-- ===== SIDEBAR ===== -->
 <div class="sidebar">
@@ -140,7 +11,7 @@ tr{
 
 <a href="{% url 'supervisor_dashboard' %}">🏠 Dashboard</a>
 <a href="{% url 'applications_list' %}">📄 Applications</a>
-<a href="{% url 'reports' %}">📊 Reports</a>
+<a href="{% url 'reports' %}"  class="active">📊 Reports </a>
 <a href="{% url 'logout' %}">🚪 Logout</a>
 </div>
 
@@ -187,9 +58,10 @@ tr{
 
 </div>
 
+
 <!-- ===== CHART ===== -->
 <div class="chart-box">
-<canvas id="loanChart"></canvas>
+    <canvas id="loanChart"></canvas>
 </div>
 
 <!-- ===== TABLE ===== -->
@@ -237,20 +109,95 @@ No Applications Found
 
 <script>
 
-/* ===== SAFE VALUES FROM DJANGO ===== */
-const approved = parseInt("{{ approved|default:0 }}");
-const rejected = parseInt("{{ rejected|default:0 }}");
-const pending = parseInt("{{ pending|default:0 }}");
+const approved = parseInt("{{ approved|default:0 }}") || 0;
+const rejected = parseInt("{{ rejected|default:0 }}") || 0;
+const pending = parseInt("{{ pending|default:0 }}") || 0;
 
-/* ===== CHART ===== */
-new Chart(document.getElementById('loanChart'), {
-    type: 'doughnut',
+const ctx = document.getElementById("loanChart");
+
+new Chart(ctx, {
+
+    type: "doughnut",
+
     data: {
-        labels: ['Approved', 'Rejected', 'Pending'],
+        labels: [
+            "Approved",
+            "Rejected",
+            "Pending"
+        ],
+
         datasets: [{
-            data: [approved, rejected, pending],
-            backgroundColor: ['#22c55e','#ef4444','#facc15']
+            data: [
+                approved,
+                rejected,
+                pending
+            ],
+
+            backgroundColor: [
+                "#22c55e",
+                "#ef4444",
+                "#facc15"
+            ],
+
+            borderColor: "#ffffff",
+            borderWidth: 4,
+
+            hoverOffset: 8
         }]
+    },
+
+    options: {
+
+        responsive: true,
+
+        /* IMPORTANT - prevents huge chart */
+        maintainAspectRatio: false,
+
+        cutout: "62%",
+
+        plugins: {
+
+            legend: {
+                position: "top",
+
+                labels: {
+                    usePointStyle: true,
+                    pointStyle: "circle",
+
+                    padding: 20,
+
+                    font: {
+                        family: "Poppins",
+                        size: 13,
+                        weight: "500"
+                    }
+                }
+            },
+
+            tooltip: {
+                backgroundColor: "#0f172a",
+                titleColor: "#ffffff",
+                bodyColor: "#ffffff",
+
+                padding: 12,
+
+                callbacks: {
+                    label: function(context) {
+
+                        const value = context.raw;
+
+                        return " " +
+                            context.label +
+                            ": " +
+                            value;
+                    }
+                }
+            }
+        },
+
+        animation: {
+            duration: 900
+        }
     }
 });
 

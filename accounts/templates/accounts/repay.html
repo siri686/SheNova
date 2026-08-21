@@ -1,112 +1,14 @@
+{% load static %}
+
 {% block content %}
 
+<link rel="stylesheet"
+      href="{% static 'shenova.css' %}">
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-<style>
 
-/* ===== BASE ===== */
-body{
-    font-family:'Poppins',sans-serif;
-    background: linear-gradient(135deg,#1e293b,#0f172a);
-    color:white;
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin:0;
-    transition:0.3s;
-}
 
-.light{
-    background:#f8fafc;
-    color:black;
-}
-
-/* ===== CONTAINER / CARD ===== */
-.repay-container{
-    background:#1e293b;
-    padding:40px;
-    width:400px;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.3);
-    transition:0.3s;
-}
-
-.light .repay-container{
-    background:white;
-    color:black;
-}
-
-/* ===== HEADING ===== */
-.repay-container h2{
-    text-align:center;
-    margin-bottom:25px;
-    font-weight:600;
-}
-
-/* ===== LOAN INFO BOX ===== */
-.loan-box{
-    background:#334155;
-    padding:20px;
-    border-radius:12px;
-    margin-bottom:20px;
-    text-align:left;
-}
-
-.light .loan-box{
-    background:#e2e8f0;
-    color:black;
-}
-
-.loan-box p{
-    margin:8px 0;
-}
-
-/* ===== INPUT ===== */
-input[type=number]{
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    margin-top:10px;
-    font-size:16px;
-    transition:0.3s;
-}
-
-input[type=number]:focus{
-    outline:none;
-    box-shadow:0 0 0 2px #38bdf8;
-}
-
-/* ===== BUTTON ===== */
-.submit-btn{
-    width:100%;
-    margin-top:20px;
-    padding:12px;
-    background:#38bdf8;
-    color:black;
-    border:none;
-    border-radius:10px;
-    font-weight:600;
-    cursor:pointer;
-    transition:0.3s;
-}
-
-.submit-btn:hover{
-    opacity:0.85;
-    transform:scale(1.05);
-    box-shadow:0 8px 20px rgba(0,0,0,0.2);
-}
-
-/* ===== RESPONSIVE ===== */
-@media(max-width:500px){
-    .repay-container{
-        width:90%;
-        padding:25px;
-    }
-}
-
-</style>
+<div class="repay-page">
 
 <div class="repay-container">
 
@@ -148,20 +50,10 @@ Submit Repayment
 
 </form>
 <div style="margin-top:20px; text-align:center;">
-    <a href="{% url 'student_dashboard' %}" 
-       style="
-       display:inline-block;
-       padding:10px 20px;
-       border-radius:10px;
-       background:#64748b;
-       color:white;
-       text-decoration:none;
-       font-weight:500;
-       transition:0.3s;
-       ">
-        ← Back to Dashboard
-    </a>
+    <a href="{% url 'student_dashboard' %}" class="repay-back">
+    ← Back to Dashboard
+</a>
 </div>
 </div>
-
+</div>
 {% endblock %}

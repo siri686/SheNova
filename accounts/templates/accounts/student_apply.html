@@ -1,370 +1,1088 @@
+{% load static %}
+
 {% block content %}
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
 
-/* ===== GLOBAL ===== */
-/* ===== GLOBAL ===== */
-body{
+/* =====================================================
+   SHENOVA APPLY LOAN - PROFESSIONAL UI
+   ===================================================== */
+
+*{
+    box-sizing:border-box;
+}
+
+html,body{
     margin:0;
+    padding:0;
+    min-height:100%;
     font-family:'Poppins',sans-serif;
-    background:#0f172a;
-    color:#e2e8f0;
+    background:#f5f7fb;
+    color:#172033;
 }
 
-.light{
-    background:#f8fafc;
-    color:#0f172a;
-}
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
 
-/* ===== SIDEBAR ===== */
 .sidebar{
     position:fixed;
-    width:240px;
-    height:100%;
-    background:#020617;
-    padding:25px 15px;
+    top:0;
+    left:0;
+    width:250px;
+    height:100vh;
+
+    padding:28px 17px;
+
+    background:linear-gradient(
+        180deg,
+        #111827 0%,
+        #0b1120 100%
+    );
+
+    box-shadow:8px 0 30px rgba(15,23,42,.08);
+
+    z-index:1000;
 }
 
 .sidebar h2{
-    color:#38bdf8;
+    margin:0 0 35px;
+
+    color:#ffffff;
     text-align:center;
+
+    font-size:21px;
+    font-weight:700;
+    letter-spacing:-.5px;
 }
 
-.sidebar a, .sidebar button{
-    display:block;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    color:#cbd5f5;
-    text-decoration:none;
-    background:none;
-    border:none;
+/* NAV LINKS */
+
+.sidebar a{
+    display:flex;
+    align-items:center;
+
     width:100%;
-    transition:0.3s;
+    min-height:46px;
+
+    padding:11px 14px;
+    margin:6px 0;
+
+    border-radius:11px;
+
+    color:#94a3b8;
+    text-decoration:none;
+
+    font-size:14px;
+    font-weight:500;
+
+    transition:.25s ease;
 }
 
-.sidebar a:hover, .sidebar button:hover{
-    background:rgba(56,189,248,0.2);
+.sidebar a:hover{
+    background:rgba(124,108,255,.12);
+    color:#ffffff;
+    transform:translateX(3px);
 }
 
-/* ===== LIGHT SIDEBAR ===== */
-body.light .sidebar{
-    background:#e2e8f0;
-}
-body.light .sidebar a,
-body.light .sidebar button{
-    color:#0f172a;
-}
-body.light .sidebar a:hover,
-body.light .sidebar button:hover{
-    background:rgba(0,0,0,0.1);
+/* ACTIVE LINK */
+
+.sidebar a.active{
+    background:linear-gradient(
+        135deg,
+        #7568ff,
+        #6658f6
+    );
+
+    color:#ffffff;
+
+    box-shadow:
+        0 8px 20px rgba(102,88,246,.25);
 }
 
-/* ===== MAIN ===== */
+.sidebar a.active:hover{
+    transform:none;
+}
+
+/* LOCKED APPLY */
+
+.sidebar > span{
+    display:block;
+
+    padding:13px 14px;
+    margin:6px 0;
+
+    border-radius:11px;
+
+    background:rgba(255,255,255,.035);
+
+    color:#64748b;
+
+    font-size:13px;
+    line-height:1.6;
+}
+
+/* SIDEBAR BUTTON */
+
+.sidebar button{
+    width:100%;
+    min-height:46px;
+
+    padding:11px 14px;
+    margin:6px 0;
+
+    border:none;
+    border-radius:11px;
+
+    background:transparent;
+
+    color:#94a3b8;
+
+    font-family:inherit;
+    font-size:14px;
+    font-weight:500;
+
+    text-align:left;
+
+    cursor:pointer;
+
+    transition:.25s ease;
+}
+
+.sidebar button:hover{
+    background:rgba(124,108,255,.12);
+    color:#ffffff;
+    transform:translateX(3px);
+}
+
+/* LOGOUT */
+
+.sidebar form{
+    margin-top:10px;
+    padding:0;
+}
+
+.sidebar form button:hover{
+    background:rgba(239,68,68,.08);
+    color:#f87171;
+}
+
+/* =====================================================
+   MAIN AREA
+   ===================================================== */
+
 .main{
-    margin-left:260px;
-    padding:40px 20px;
+    margin-left:250px;
+    min-height:100vh;
+
+    padding:45px 50px;
+
     display:flex;
     justify-content:center;
+    align-items:flex-start;
 }
 
-/* ===== CARD (FORM CONTAINER) ===== */
+/* =====================================================
+   FORM CARD
+   ===================================================== */
+
 .card{
     width:100%;
-    max-width:650px;
-    background:linear-gradient(145deg,#1e293b,#0f172a);
-    padding:30px;
-    border-radius:20px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.5);
-}
+    max-width:850px;
 
-/* ===== LIGHT CARD ===== */
-body.light .card{
     background:#ffffff;
-    color:#0f172a;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+
+    border:1px solid #e8ebf2;
+
+    border-radius:20px;
+
+    padding:35px 38px;
+
+    box-shadow:
+        0 15px 45px rgba(15,23,42,.08);
 }
 
-/* ===== TITLE ===== */
+/* TITLE */
+
 .card h2{
-    margin-bottom:20px;
-    font-weight:600;
+    margin:0 0 28px;
+
+    color:#172033;
+
+    font-size:26px;
+    font-weight:700;
+
+    letter-spacing:-.5px;
 }
 
-/* ===== FORM INPUTS ===== */
-input, textarea, select{
+/* =====================================================
+   FORM
+   ===================================================== */
+
+form{
     width:100%;
-    padding:12px;
-    margin-top:12px;
-    border-radius:10px;
-    border:none;
-    background:#0f172a;
-    color:#e2e8f0;
-    outline:none;
-    transition:0.3s;
 }
 
-/* ===== INPUT FOCUS ===== */
-input:focus, textarea:focus, select:focus{
-    border:1px solid #38bdf8;
-    box-shadow:0 0 10px rgba(56,189,248,0.4);
-}
-
-/* ===== LIGHT INPUT ===== */
-.light input, .light textarea, .light select{
-    background:#e2e8f0;
-    color:#0f172a;
-}
-
-/* ===== TEXTAREA ===== */
-textarea{
-    min-height:90px;
-    resize:none;
-}
-
-/* ===== FILE INPUT ===== */
-input[type="file"]{
-    background:#020617;
-    padding:10px;
-    border:1px dashed #38bdf8;
-}
-
-/* ===== LABEL ===== */
-label{
-    display:block;
-    margin-top:12px;
-    font-size:14px;
-    color:#94a3b8;
-}
-
-/* ===== INTEREST TEXT ===== */
-#interest-info{
-    margin-top:10px;
-    color:#38bdf8;
-    font-weight:500;
-}
-
-#total-pay{
-    color:#22c55e;
-    font-weight:600;
-}
-
-/* ===== BUTTON ===== */
-.btn{
-    background:linear-gradient(90deg,#06b6d4,#4f46e5);
-    color:white;
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    margin-top:18px;
-    width:100%;
-    font-weight:600;
-    transition:0.3s;
-}
-
-/* ===== BUTTON HOVER ===== */
-.btn:hover{
-    transform:scale(1.03);
-    box-shadow:0 5px 20px rgba(79,70,229,0.4);
-}
-
-/* ===== BUTTON GROUP ===== */
-.button-group{
-    display:flex;
-    gap:12px;
-}
-
-/* ===== STEPS ===== */
 .step{
     display:none;
-    animation:fade 0.3s ease;
 }
 
 .step.active{
     display:block;
+    animation:fadeIn .3s ease;
 }
 
-/* ===== ANIMATION ===== */
-@keyframes fade{
-    from{opacity:0; transform:translateY(10px);}
-    to{opacity:1; transform:translateY(0);}
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(8px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
 }
+
+/* =====================================================
+   INPUTS
+   ===================================================== */
+
+input,
+select,
+textarea{
+    width:100%;
+
+    padding:13px 15px;
+
+    margin:7px 0 14px;
+
+    border:1px solid #dfe3eb;
+
+    border-radius:10px;
+
+    background:#ffffff;
+
+    color:#172033;
+
+    font-family:'Poppins',sans-serif;
+    font-size:13px;
+
+    outline:none;
+
+    transition:
+        border-color .2s ease,
+        box-shadow .2s ease,
+        background .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder{
+    color:#9aa3b2;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+    border-color:#7568ff;
+
+    box-shadow:
+        0 0 0 4px rgba(117,104,255,.10);
+
+    background:#ffffff;
+}
+
+/* TEXTAREA */
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+/* SELECT */
+
+select{
+    cursor:pointer;
+}
+
+/* =====================================================
+   LABELS
+   ===================================================== */
+
+label{
+    display:block;
+
+    margin:5px 0 4px;
+
+    color:#4b5563;
+
+    font-size:12px;
+    font-weight:600;
+}
+
+/* =====================================================
+   DOCUMENT SECTION
+   ===================================================== */
+
+.step h4{
+    margin:25px 0 12px;
+
+    color:#172033;
+
+    font-size:15px;
+    font-weight:700;
+}
+
+/* FILE UPLOAD */
+
+input[type="file"]{
+    padding:11px;
+
+    background:#f8f9fc;
+
+    border:1px dashed #cfd5df;
+
+    cursor:pointer;
+}
+
+input[type="file"]:hover{
+    border-color:#7568ff;
+    background:#f7f6ff;
+}
+
+/* =====================================================
+   INTEREST / TOTAL
+   ===================================================== */
+
+#interest-info{
+    margin:2px 0 8px;
+
+    color:#635bff !important;
+
+    font-size:13px;
+    font-weight:600;
+}
+
+#total-pay{
+    margin:0 0 15px;
+
+    color:#16a34a !important;
+
+    font-size:14px;
+    font-weight:700;
+}
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+.btn{
+    width:100%;
+
+    min-height:46px;
+
+    padding:12px 18px;
+
+    margin-top:12px;
+
+    border:none;
+    border-radius:11px;
+
+    background:linear-gradient(
+        135deg,
+        #635bff,
+        #8178ff
+    );
+
+    color:#ffffff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:13px;
+    font-weight:700;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 8px 20px rgba(99,91,255,.20);
+
+    transition:.2s ease;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 25px rgba(99,91,255,.28);
+}
+
+.btn:active{
+    transform:translateY(0);
+}
+
+/* BUTTON GROUP */
+
+.button-group{
+    display:flex;
+
+    gap:12px;
+
+    margin-top:10px;
+}
+
+.button-group .btn{
+    flex:1;
+}
+
+/* =====================================================
+   STEP 2 VISUAL SEPARATION
+   ===================================================== */
+
+#step2{
+    padding-top:2px;
+}
+
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+body.light{
+    background:#f5f7fb;
+    color:#172033;
+}
+
+body.dark{
+    background:#0f172a;
+    color:#e5e7eb;
+}
+
+body.dark .main{
+    background:#0f172a;
+}
+
+body.dark .card{
+    background:#111827;
+    border-color:#1f2937;
+    color:#e5e7eb;
+}
+
+body.dark .card h2,
+body.dark .step h4{
+    color:#ffffff;
+}
+
+body.dark input,
+body.dark select,
+body.dark textarea{
+    background:#1f2937;
+    border-color:#374151;
+    color:#ffffff;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder{
+    color:#9ca3af;
+}
+
+body.dark label{
+    color:#cbd5e1;
+}
+
+body.dark input[type="file"]{
+    background:#1f2937;
+    border-color:#4b5563;
+}
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media(max-width:900px){
+
+    .sidebar{
+        width:220px;
+    }
+
+    .main{
+        margin-left:220px;
+        padding:30px 20px;
+    }
+
+    .card{
+        padding:28px;
+    }
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        position:relative;
+
+        width:100%;
+        height:auto;
+
+        padding:18px;
+    }
+
+    .sidebar h2{
+        margin-bottom:18px;
+    }
+
+    .main{
+        margin-left:0;
+
+        padding:20px 15px;
+    }
+
+    .card{
+        padding:24px 20px;
+
+        border-radius:15px;
+    }
+
+    .card h2{
+        font-size:22px;
+    }
+
+    .button-group{
+        flex-direction:column;
+    }
+}
+
 </style>
 
-<!-- SIDEBAR -->
+
+<!-- =====================================================
+     SIDEBAR
+     ===================================================== -->
+
 <div class="sidebar">
-    <h2>🎓SheNova</h2>
 
-    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
-    <a href="{% url 'student_apply' %}">💰 Apply Loan</a>
-    <a href="{% url 'student_transactions' %}">🔄 Transactions</a>
+    <h2>🎓 SheNova</h2>
 
-    <!-- 🌙 Toggle -->
-    <button onclick="toggleTheme()">🌙 Toggle</button>
+    <a href="{% url 'student_dashboard' %}">
+        🏠 Dashboard
+    </a>
 
-    <!-- 🚪 Logout -->
+    {% if can_apply %}
+
+        <a href="{% url 'student_apply' %}" class="active">
+            💰 Apply Loan
+        </a>
+
+    {% else %}
+
+        <span>
+            🔒 Apply Locked<br>
+            Repay ₹{{ remaining_to_unlock|floatformat:2 }}
+        </span>
+
+    {% endif %}
+
+    <a href="{% url 'student_transactions' %}">
+        🔄 Transactions
+    </a>
+
+    <button type="button" onclick="toggleTheme()">
+        🌙 Appearance
+    </button>
+
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button type="submit">🚪 Logout</button>
+
+        <button type="submit">
+            🚪 Logout
+        </button>
+
     </form>
+
 </div>
 
-<!-- MAIN -->
+
+<!-- =====================================================
+     MAIN
+     ===================================================== -->
+
 <div class="main">
 
 <div class="card">
 
-<h2>💰 Apply for Loan</h2>
+    <h2>💰 Apply for Loan</h2>
 
-<form method="POST" enctype="multipart/form-data">
-{% csrf_token %}
 
-<!-- STEP 1 -->
-<div class="step active" id="step1">
+    <form method="POST" enctype="multipart/form-data">
 
-<input type="text" name="full_name" placeholder="Full Name" required>
-<input type="text" name="phone" placeholder="Phone" required
-       pattern="[0-9]{10}" maxlength="10"
-       title="Enter exactly 10 digit phone number">
-<input type="text" name="college" placeholder="College" required>
-<input type="text" name="course" placeholder="Course" required>
+        {% csrf_token %}
 
-<select name="year" required>
-    <option value="">Select Year</option>
-    <option value="1">1st Year</option>
-    <option value="2">2nd Year</option>
-    <option value="3">3rd Year</option>
-    <option value="4">4th Year</option>
-</select>
-<input type="number" name="amount" placeholder="Amount" required>
-<textarea name="reason" placeholder="Reason" required></textarea>
-<input type="number" name="family_income" placeholder="Family Income" required>
 
-<select name="repayment_plan" id="plan" onchange="showInterest()" required>
+        <!-- =================================================
+             STEP 1
+             ================================================= -->
 
-    <option value="" disabled selected>Choose Repayment Plan</option>
+        <div class="step active" id="step1">
 
-    <option value="30" data-interest="2">30 Days - 2% Interest</option>
-    <option value="60" data-interest="4">60 Days - 4% Interest</option>
-    <option value="90" data-interest="6">90 Days - 6% Interest</option>
+            <input
+                type="text"
+                name="full_name"
+                placeholder="Full Name"
+                required
+            >
 
-</select>
+            <input
+                type="text"
+                name="phone"
+                placeholder="Phone"
+                required
+                pattern="[0-9]{10}"
+                maxlength="10"
+                title="Enter exactly 10 digit phone number"
+            >
 
-<p id="interest-info" style="margin-top:10px; color:#38bdf8;"></p>
-<p id="total-pay" style="color:#22c55e;"></p>
+            <input
+                type="text"
+                name="college"
+                placeholder="College"
+                required
+            >
 
-<button type="button" class="btn" onclick="nextStep()">Next</button>
+            <input
+                type="text"
+                name="course"
+                placeholder="Course"
+                required
+            >
+
+
+            <select name="year" required>
+
+                <option value="">
+                    Select Year
+                </option>
+
+                <option value="1">
+                    1st Year
+                </option>
+
+                <option value="2">
+                    2nd Year
+                </option>
+
+                <option value="3">
+                    3rd Year
+                </option>
+
+                <option value="4">
+                    4th Year
+                </option>
+
+            </select>
+
+
+            <input
+                type="number"
+                name="amount"
+                placeholder="Loan Amount"
+                required
+            >
+
+
+            <textarea
+                name="reason"
+                placeholder="Why do you need this loan?"
+                required
+            ></textarea>
+
+
+            <input
+                type="number"
+                name="family_income"
+                placeholder="Family Income"
+                required
+            >
+
+
+            <select
+                name="repayment_plan"
+                id="plan"
+                onchange="showInterest()"
+                required
+            >
+
+                <option value="" disabled selected>
+                    Choose Repayment Plan
+                </option>
+
+                <option value="30" data-interest="2">
+                    30 Days - 2% Interest
+                </option>
+
+                <option value="60" data-interest="4">
+                    60 Days - 4% Interest
+                </option>
+
+                <option value="90" data-interest="6">
+                    90 Days - 6% Interest
+                </option>
+
+            </select>
+
+
+            <p id="interest-info"></p>
+
+            <p id="total-pay"></p>
+
+
+            <button
+                type="button"
+                class="btn"
+                onclick="nextStep()"
+            >
+                Continue →
+            </button>
+
+        </div>
+
+
+        <!-- =================================================
+             STEP 2
+             ================================================= -->
+
+        <div class="step" id="step2">
+
+
+            <input
+                type="text"
+                name="aadhaar_number"
+                placeholder="Aadhaar Number"
+                pattern="[0-9]{12}"
+                maxlength="12"
+                title="Enter 12 digit Aadhaar"
+                required
+            >
+
+
+            <input
+                type="text"
+                name="pan_number"
+                placeholder="PAN Number"
+                pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"
+                title="Format: ABCDE1234F"
+                required
+            >
+
+
+            <input
+                type="text"
+                name="student_id_number"
+                placeholder="Roll Number"
+                required
+                pattern="[A-Za-z0-9]{6,15}"
+                title="Enter valid roll number (6-15 characters, letters & numbers)"
+            >
+
+
+            <input
+                type="text"
+                name="reference_name"
+                placeholder="Reference Name"
+                required
+            >
+
+
+            <input
+                type="text"
+                name="reference_phone"
+                placeholder="Reference Phone"
+                required
+                pattern="[0-9]{10}"
+                maxlength="10"
+                title="Enter exactly 10 digit phone number"
+            >
+
+
+            <h4>📂 Upload Documents</h4>
+
+
+            <div class="form-group">
+
+                <label for="aadhar_card">
+                    Aadhaar Card (PDF / JPG / PNG)
+                </label>
+
+                <input
+                    type="file"
+                    id="aadhar_card"
+                    name="aadhar_card"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="pan_card">
+                    PAN Card (PDF / JPG / PNG)
+                </label>
+
+                <input
+                    type="file"
+                    id="pan_card"
+                    name="pan_card"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="student_id_card">
+                    Student ID (PDF / JPG / PNG)
+                </label>
+
+                <input
+                    type="file"
+                    id="student_id_card"
+                    name="student_id_card"
+                    accept=".pdf,.jpg,.jpeg,.png"
+                    required
+                >
+
+            </div>
+
+
+            <select name="is_emergency">
+
+                <option value="False">
+                    Normal
+                </option>
+
+                <option value="True">
+                    Emergency
+                </option>
+
+            </select>
+
+
+            <select name="priority_level">
+
+                <option value="Low">
+                    Low Priority
+                </option>
+
+                <option value="Medium">
+                    Medium Priority
+                </option>
+
+                <option value="High">
+                    High Priority
+                </option>
+
+                <option value="Critical">
+                    Critical Priority
+                </option>
+
+            </select>
+
+
+            <div class="button-group">
+
+                <button
+                    type="button"
+                    class="btn"
+                    onclick="prevStep()"
+                >
+                    ← Back
+                </button>
+
+                <button
+                    type="submit"
+                    class="btn"
+                    onclick="return validateStep2()"
+                >
+                    Submit Application
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
 </div>
 
-<!-- STEP 2 -->
-<div class="step" id="step2">
-
-<input type="text" name="aadhaar_number" placeholder="Aadhaar"
-       pattern="[0-9]{12}" maxlength="12"
-       title="Enter 12 digit Aadhaar" required>
-<input type="text" name="pan_number" placeholder="PAN"
-       pattern="[A-Za-z]{5}[0-9]{4}[A-Za-z]{1}"
-       title="Format: ABCDE1234F" required>
-<input type="text" name="student_id_number" placeholder="Roll Number" required
-       pattern="[A-Za-z0-9]{6,15}"
-       title="Enter valid roll number (6-15 characters, letters & numbers)">
-<input type="text" name="reference_name" placeholder="Reference Name" required>
-<input type="text" name="reference_phone" placeholder="Reference Phone" required
-       pattern="[0-9]{10}" maxlength="10"
-       title="Enter exactly 10 digit phone number">
-<h4>📂 Upload Documents</h4>
-
-<div class="form-group">
-    <label for="aadhar_card">Aadhaar Card (PDF / JPG / PNG)</label>
-    <input type="file" id="aadhar_card" name="aadhar_card" accept=".pdf,.jpg,.jpeg,.png" required>
 </div>
 
-<div class="form-group">
-    <label for="pan_card">PAN Card (PDF / JPG / PNG)</label>
-    <input type="file" id="pan_card" name="pan_card" accept=".pdf,.jpg,.jpeg,.png" required>
-</div>
-
-<div class="form-group">
-    <label for="student_id_card">Student ID (PDF / JPG / PNG)</label>
-    <input type="file" id="student_id_card" name="student_id_card" accept=".pdf,.jpg,.jpeg,.png" required>
-</div>
-<select name="is_emergency">
-<option value="False">Normal</option>
-<option value="True">Emergency</option>
-</select>
-
-<select name="priority_level">
-<option value="Low">Low</option>
-<option value="Medium">Medium</option>
-<option value="High">High</option>
-<option value="Critical">Critical</option>
-</select>
-
-<div class="button-group">
-<button type="button" class="btn" onclick="prevStep()">Back</button>
-<button type="submit" class="btn" onclick="return validateStep2()">Submit</button>
-</div>
-
-</div>
-
-</form>
-</div>
-</div>
 
 <script>
-function nextStep(){
-document.getElementById("step1").classList.remove("active");
-document.getElementById("step2").classList.add("active");
-}
-function prevStep(){
-document.getElementById("step2").classList.remove("active");
-document.getElementById("step1").classList.add("active");
-}
-function toggleTheme(){
-document.body.classList.toggle("light");
-}
-function validateStep1(){
-    let phone = document.querySelector('[name="phone"]').value;
 
-    // 📱 PHONE VALIDATION
+/* =====================================================
+   STEP NAVIGATION
+   ===================================================== */
+
+function nextStep(){
+
+    if(!validateStep1()){
+        return;
+    }
+
+    document
+        .getElementById("step1")
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("step2")
+        .classList
+        .add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+function prevStep(){
+
+    document
+        .getElementById("step2")
+        .classList
+        .remove("active");
+
+    document
+        .getElementById("step1")
+        .classList
+        .add("active");
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* =====================================================
+   THEME
+   ===================================================== */
+
+function toggleTheme(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+
+/* =====================================================
+   STEP 1 VALIDATION
+   ===================================================== */
+
+function validateStep1(){
+
+    let phone =
+        document.querySelector('[name="phone"]').value;
+
     if(!/^\d{10}$/.test(phone)){
+
         alert("Phone must be exactly 10 digits");
+
         return false;
     }
 
     return true;
 }
+
+
+/* =====================================================
+   STEP 2 VALIDATION
+   ===================================================== */
 
 function validateStep2(){
-    let refPhone = document.querySelector('[name="reference_phone"]').value;
 
-    // 📱 REFERENCE PHONE VALIDATION
+    let refPhone =
+        document.querySelector('[name="reference_phone"]').value;
+
     if(!/^\d{10}$/.test(refPhone)){
+
         alert("Reference phone must be exactly 10 digits");
+
         return false;
     }
 
     return true;
 }
 
-function nextStep(){
-    if(!validateStep1()) return;   // ✅ VALIDATION ADDED
 
-    document.getElementById("step1").classList.remove("active");
-    document.getElementById("step2").classList.add("active");
+/* =====================================================
+   REPAYMENT PLAN PREVIEW
+   ===================================================== */
+
+function showInterest(){
+
+    let plan =
+        document.getElementById("plan");
+
+    let selected =
+        plan.options[plan.selectedIndex];
+
+    let interest =
+        selected.getAttribute("data-interest");
+
+    let amount =
+        parseFloat(
+            document.querySelector('[name="amount"]').value
+        ) || 0;
+
+
+    if(!interest){
+
+        document.getElementById("interest-info").innerText = "";
+        document.getElementById("total-pay").innerText = "";
+
+        return;
+    }
+
+
+    let interestAmount =
+        amount * (parseFloat(interest) / 100);
+
+    let total =
+        amount + interestAmount;
+
+
+    document.getElementById("interest-info").innerText =
+        "Interest: " + interest + "%";
+
+
+    document.getElementById("total-pay").innerText =
+        "Estimated Total Repayment: ₹" +
+        total.toFixed(2);
 }
 
-function prevStep(){
-    document.getElementById("step2").classList.remove("active");
-    document.getElementById("step1").classList.add("active");
-}
 
-function toggleTheme(){
-    document.body.classList.toggle("light");
-}
+/* Update repayment preview when amount changes */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    let amountInput =
+        document.querySelector('[name="amount"]');
+
+    if(amountInput){
+
+        amountInput.addEventListener(
+            "input",
+            showInterest
+        );
+
+    }
+
+});
+
 </script>
 
 {% endblock %}

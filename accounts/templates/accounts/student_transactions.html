@@ -1,159 +1,48 @@
+{% load static %}
+
 {% block content %}
+
+<link rel="stylesheet"
+      href="{% static 'shenova.css' %}">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 
-<style>
 
-/* ===== GLOBAL ===== */
-body{
-    margin:0;
-    font-family:'Poppins',sans-serif;
-    background:#0f172a;
-    color:#e2e8f0;
-}
 
-.light{
-    background:#f8fafc;
-    color:#0f172a;
-}
-
-/* ===== SIDEBAR ===== */
-.sidebar{
-    position:fixed;
-    width:240px;
-    height:100%;
-    background:#020617;
-    padding:25px 15px;
-}
-
-.sidebar h2{
-    color:#38bdf8;
-    text-align:center;
-}
-
-.sidebar a, .sidebar button{
-    display:block;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    color:#cbd5f5;
-    text-decoration:none;
-    background:none;
-    border:none;
-}
-
-.sidebar a:hover, .sidebar button:hover{
-    background:rgba(56,189,248,0.2);
-    color:white;
-}
-
-/* ===== MAIN ===== */
-.main{
-    margin-left:260px;
-    padding:25px;
-}
-
-/* ===== CARD ===== */
-.card{
-    background:linear-gradient(145deg,#1e293b,#0f172a);
-    padding:20px;
-    border-radius:16px;
-}
-
-/* ===== TABLE ===== */
-table{
-    width:100%;
-    border-collapse:collapse;
-}
-
-th{
-    background:#334155;
-    padding:12px;
-}
-
-td{
-    padding:12px;
-    text-align:center;
-}
-
-tr:hover{
-    background:rgba(56,189,248,0.1);
-}
-
-/* ===== BUTTON ===== */
-.btn{
-    background:#38bdf8;
-    color:black;
-    padding:8px 15px;
-    border-radius:8px;
-    text-decoration:none;
-}
-
-/* ===== LIGHT MODE FIXES ===== */
-
-/* Sidebar */
-body.light .sidebar {
-    background: #e2e8f0;
-}
-
-body.light .sidebar a,
-body.light .sidebar button {
-    color: #0f172a;
-}
-
-body.light .sidebar a:hover,
-body.light .sidebar button:hover {
-    background: rgba(0,0,0,0.1);
-    color:black;
-}
-
-/* Card */
-body.light .card{
-    background:#ffffff;
-    color:#0f172a;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* ✅ FIX: TABLE TEXT VISIBILITY */
-body.light table{
-    color:#0f172a;
-}
-
-body.light th{
-    background:#cbd5e1;
-    color:#0f172a;
-}
-
-body.light tr:hover{
-    background:rgba(0,0,0,0.05);
-}
-
-</style>
-
-<!-- SIDEBAR -->
 <div class="sidebar">
+
     <h2>🎓SheNova</h2>
 
-    <a href="{% url 'student_dashboard' %}">🏠 Dashboard</a>
+    <a href="{% url 'student_dashboard' %}">
+        🏠 Dashboard
+    </a>
 
-    <!-- ✅ FIX: APPLY LOCK LOGIC ADDED -->
     {% if can_apply %}
-        <a href="{% url 'student_apply' %}">💰 Apply Loan</a>
+        <a href="{% url 'student_apply' %}">
+            💰 Apply Loan
+        </a>
     {% else %}
-        <span style="color:gray; cursor:not-allowed;"
-              title="Repay ₹{{ remaining_to_unlock|floatformat:2 }} to unlock">
-            💰 Apply Loan (Locked)
+        <span>
+            🔒 Apply Locked<br>
+            Repay ₹{{ remaining_to_unlock|floatformat:2 }}
         </span>
     {% endif %}
 
-    <a href="{% url 'student_transactions' %}">🔄 Transactions</a>
+    <a href="{% url 'student_transactions' %}" class="active">
+        🔄 Transactions
+    </a>
 
-    <button onclick="toggleTheme()">🌙 Toggle</button>
+    <button onclick="toggleTheme()">
+        🌙 Appearance
+    </button>
 
     <form method="POST" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button type="submit">🚪 Logout</button>
+        <button type="submit">
+            🚪 Logout
+        </button>
     </form>
+
 </div>
 
 <!-- MAIN -->

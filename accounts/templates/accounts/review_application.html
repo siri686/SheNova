@@ -1,165 +1,9 @@
+{% load static %}
+
 {% block content %}
 
-<style>
-
-/* ===== DARK MODERN UI ===== */
-
-body{
-background:#0f172a;
-font-family:'Segoe UI',sans-serif;
-color:white;
-margin:0;
-}
-
-/* ===== SIDEBAR ===== */
-
-.sidebar{
-width:220px;
-height:100vh;
-background:#020617;
-padding:20px;
-position:fixed;
-}
-
-.sidebar h3{
-color:#8b5cf6;
-margin-bottom:30px;
-}
-
-.sidebar a{
-display:block;
-color:#cbd5f5;
-padding:10px;
-margin-bottom:10px;
-text-decoration:none;
-border-radius:8px;
-transition:0.3s;
-}
-
-.sidebar a:hover{
-background:#1e293b;
-}
-
-/* ===== CONTENT ===== */
-
-.content{
-margin-left:240px;
-padding:30px;
-}
-
-/* ===== REVIEW CARD ===== */
-
-.review-container{
-background:#1e293b;
-padding:30px;
-border-radius:15px;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-max-width:900px;
-}
-
-/* Sections */
-
-.section{
-background:#0f172a;
-padding:20px;
-border-radius:10px;
-margin-bottom:20px;
-}
-
-.section h4{
-margin-bottom:10px;
-color:#a78bfa;
-}
-
-/* Textarea */
-
-textarea{
-width:100%;
-border-radius:10px;
-padding:12px;
-border:none;
-margin-top:10px;
-background:#020617;
-color:white;
-}
-
-textarea:focus{
-outline:none;
-box-shadow:0 0 0 2px #8b5cf6;
-}
-
-/* Buttons */
-
-.action-buttons{
-margin-top:20px;
-}
-
-.action-btn{
-padding:10px 20px;
-border:none;
-border-radius:8px;
-font-weight:600;
-margin-right:10px;
-cursor:pointer;
-}
-
-/* Approve */
-
-.approve{
-background:#22c55e;
-color:white;
-}
-
-.approve:hover{
-background:#16a34a;
-}
-
-/* Reject */
-
-.reject{
-background:#ef4444;
-color:white;
-}
-
-.reject:hover{
-background:#dc2626;
-}
-
-/* Status Message */
-
-.status-msg{
-color:#22c55e;
-font-weight:bold;
-margin-top:10px;
-}
-
-/* Status Badge */
-
-.status-badge{
-padding:6px 12px;
-border-radius:20px;
-font-size:12px;
-font-weight:600;
-}
-
-.pending{ background:#facc15; color:black; }
-.approved{ background:#22c55e; }
-.rejected{ background:#ef4444; }
-.action-btn{
-    padding:10px 20px;
-    border:none;
-    border-radius:8px;
-    font-weight:600;
-    margin-right:10px;
-    cursor:pointer;
-}
-
-.approve{ background:#22c55e; color:white; }
-.approve:hover{ background:#16a34a; }
-
-.reject{ background:#ef4444; color:white; }
-.reject:hover{ background:#dc2626; }
-</style>
+<link rel="stylesheet"
+      href="{% static 'shenova.css' %}">
 
 <!-- ===== SIDEBAR ===== -->
 <div class="sidebar">
@@ -210,6 +54,58 @@ font-weight:600;
 <p><strong>Score:</strong> {{ score }}</p>
 <p><strong>Risk Level:</strong> {{ risk }}</p>
 </div>
+
+
+<!-- ===== AI RISK ASSESSMENT ===== -->
+
+<div class="section ai-risk-card">
+
+    <h4>🤖 AI Risk Assessment</h4>
+
+    <div class="ai-score">
+        {{ application.ai_risk_score|default:"Not Available" }}/100
+    </div>
+
+    <p>
+        <strong>AI Risk Level:</strong>
+
+        {% if application.ai_risk_level == "Low" %}
+            <span class="low-risk">🟢 Low Risk</span>
+
+        {% elif application.ai_risk_level == "Medium" %}
+            <span class="medium-risk">🟡 Medium Risk</span>
+
+        {% elif application.ai_risk_level == "High" %}
+            <span class="high-risk">🔴 High Risk</span>
+
+        {% else %}
+            <span>Not Assessed</span>
+        {% endif %}
+    </p>
+
+    <div class="ai-info">
+        <h5>Risk Factors</h5>
+
+        {% if application.ai_risk_reasons %}
+            <p>{{ application.ai_risk_reasons|linebreaksbr }}</p>
+        {% else %}
+            <p>No risk factors available.</p>
+        {% endif %}
+    </div>
+
+    <div class="ai-info">
+        <h5>AI Recommendation</h5>
+
+        {% if application.ai_recommendation %}
+            <p>{{ application.ai_recommendation }}</p>
+        {% else %}
+            <p>No recommendation available.</p>
+        {% endif %}
+    </div>
+
+</div>
+
+
 
 <!-- PRIORITY -->
 <div class="section">

@@ -17,6 +17,7 @@ from django.utils.timezone import now
 from datetime import timedelta
 from .models import Loan
 import re
+from .risk_engine import analyze_application
 
 
 def calculate_credit_score(student_profile, application):
@@ -367,7 +368,17 @@ def student_apply(request):
             pan_card=pan_card,
             student_id_card=student_id_card,
         )
+        result = analyze_application(app)
 
+        app.ai_risk_score = result["score"]
+        app.ai_risk_level = result["level"]
+        app.ai_risk_reasons = "\n".join(result["reasons"])
+        app.ai_recommendation = result["recommendation"]
+
+        app.save()
+
+        print("AI RISK SCORE:", app.ai_risk_score)
+        print("AI RISK LEVEL:", app.ai_risk_level)
         print("APPLICATION CREATED:", app.id, app.status)
 
         # 🔔 Notification

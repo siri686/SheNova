@@ -1,76 +1,8 @@
+{% load static %}
 {% block content %}
 
-<style>
-
-/* SAME GLOBAL + SIDEBAR (UNCHANGED) */
-body{
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-    font-family:'Segoe UI',sans-serif;
-    color:#e2e8f0;
-}
-
-.sidebar{
-    position:fixed;
-    width:240px;
-    height:100%;
-    background:#020617;
-    padding:25px 15px;
-    box-shadow: 4px 0 20px rgba(0,0,0,0.5);
-}
-
-.sidebar h2{
-    color:#38bdf8;
-    text-align:center;
-    margin-bottom:30px;
-}
-
-.sidebar a{
-    display:block;
-    color:#cbd5f5;
-    padding:12px;
-    margin-bottom:10px;
-    border-radius:10px;
-    text-decoration:none;
-}
-
-.sidebar a:hover{
-    background:rgba(56,189,248,0.2);
-    color:white;
-}
-
-.main{
-    margin-left:260px;
-    padding:30px;
-}
-
-.card{
-    background:linear-gradient(145deg,#1e293b,#0f172a);
-    padding:20px;
-    border-radius:16px;
-    box-shadow:0 8px 25px rgba(0,0,0,0.4);
-}
-
-table{
-    width:100%;
-    margin-top:15px;
-    border-collapse:collapse;
-}
-
-th{
-    background:#334155;
-    padding:12px;
-}
-
-td{
-    padding:12px;
-    text-align:center;
-}
-
-tr:hover{
-    background:rgba(56,189,248,0.1);
-}
-
-</style>
+<link rel="stylesheet"
+      href="{% static 'shenova.css' %}">
 
 <div class="sidebar">
 <h2>🎓 SheNova</h2>

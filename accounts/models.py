@@ -92,7 +92,10 @@ class Application(models.Model):
     repayment_plan = models.CharField(max_length=10,choices=REPAYMENT_CHOICES)
 
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
-
+    ai_risk_score = models.IntegerField(null=True, blank=True)
+    ai_risk_level = models.CharField(max_length=20, null=True, blank=True)
+    ai_risk_reasons = models.TextField(null=True, blank=True)
+    ai_recommendation = models.TextField(null=True, blank=True)
     def __str__(self):
         return f"{self.student.username} - {self.amount_requested}"
 
